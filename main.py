@@ -1,4 +1,5 @@
 import  func_arbitrage
+import  json
 
 
 """
@@ -14,9 +15,19 @@ def step_0():
 
     return coin_list
 
+"""
+    在交易列表中寻找可进行三角套利的三个交易对
+    每三个交易对为一组，计算三角套利的收益率
+"""
+def step_1(coin_list):
 
+    structured_list = func_arbitrage.structure_triangular_pairs(coin_list)
+
+    with open('structured_triangular_list.json', 'w') as fp:
+        json.dump(structured_list, fp)
 
 """Main function"""
 if __name__ == '__main__':
     coin_list = step_0()
-    print(coin_list)
+    step_1(coin_list)
+    # print(coin_list)
