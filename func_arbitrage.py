@@ -84,3 +84,65 @@ def structure_triangular_pairs(coin_list):
                                     }
                                     triangular_pairs_list.append(match_dict)
     return triangular_pairs_list
+
+
+
+# 根据三角套利组合，获取每个交易对的最新价格
+def get_price_for_t_pair(t_pairs, price_json):
+    pair_a = t_pairs['pair_a']
+    pair_b = t_pairs['pair_b']
+    pair_c = t_pairs['pair_c']
+
+    pair_a_ask = price_json[pair_a]['lowestAsk']
+    pair_a_bid = price_json[pair_a]['highestBid']
+    pair_b_ask = price_json[pair_b]['lowestAsk']
+    pair_b_bid = price_json[pair_b]['highestBid']
+    pair_c_ask = price_json[pair_c]['lowestAsk']
+    pair_c_bid = price_json[pair_c]['highestBid']
+
+
+    return {
+        'pair_a_ask': pair_a_ask,
+        'pair_a_bid': pair_a_bid,
+        'pair_b_ask': pair_b_ask,
+        'pair_b_bid': pair_b_bid,
+        'pair_c_ask': pair_c_ask,
+        'pair_c_bid': pair_c_bid
+    }
+
+
+# 计算三角套利利率机会
+
+def calculate_triangulat_arb_surface_rate(t_pairs, price_dict):
+    # 设置变量
+    starting_amount = 1
+    min_surface_dict = 0
+    surface_dict = {}
+    contract_2 = ""
+    contract_3 = ""
+    direction_trade_1 = ""
+    direction_trade_2 = ""
+    direction_trade_3 = ""
+    acquired_coin_t2 = 0
+    acquired_coin_t3 = 0
+    calculated = 0
+
+    # 获取交易价格
+    a_base = t_pairs['a_base']
+    a_quote = t_pairs['a_quote']
+    b_base = t_pairs['b_base']
+    b_quote = t_pairs['b_quote']
+    c_base = t_pairs['c_base']
+    c_quote = t_pairs['c_quote']
+    pair_a = t_pairs['pair_a']
+    pair_b = t_pairs['pair_b']
+    pair_c = t_pairs['pair_c']
+
+    pair_a_ask = float(price_dict['pair_a_ask'])
+    pair_a_bid = float(price_dict['pair_a_bid'])
+    pair_b_ask = float(price_dict['pair_b_ask'])
+    pair_b_bid = float(price_dict['pair_b_bid'])
+    pair_c_ask = float(price_dict['pair_c_ask'])
+    pair_c_bid = float(price_dict['pair_c_bid'])
+
+    print( pair_a_ask * pair_b_ask)
